@@ -1,4 +1,4 @@
-package class12;
+package com.zz.algorithm.class12;
 
 public class Code03_Knapsack {
 

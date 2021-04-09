@@ -1,4 +1,4 @@
-package class06;
+package com.zz.algorithm.class06;
 
 public class Code03_SmallerEqualBigger {
 

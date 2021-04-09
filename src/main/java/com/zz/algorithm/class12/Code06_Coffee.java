@@ -1,4 +1,4 @@
-package class12;
+package com.zz.algorithm.class12;
 
 import java.util.Arrays;
 import java.util.Comparator;

@@ -1,4 +1,4 @@
-package class11;
+package com.zz.algorithm.class11;
 
 public class Code09_NQueens {
 

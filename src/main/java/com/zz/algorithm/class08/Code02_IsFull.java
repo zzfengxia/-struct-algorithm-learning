@@ -1,4 +1,4 @@
-package class08;
+package com.zz.algorithm.class08;
 
 public class Code02_IsFull {
 

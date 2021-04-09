@@ -1,4 +1,4 @@
-package class10;
+package com.zz.algorithm.class10;
 
 public class GraphGenerator {
 

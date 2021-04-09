@@ -1,4 +1,4 @@
-package class01;
+package com.zz.algorithm.class01;
 
 public class Code04_BSExist {
 

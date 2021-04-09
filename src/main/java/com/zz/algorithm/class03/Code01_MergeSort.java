@@ -1,4 +1,4 @@
-package class03;
+package com.zz.algorithm.class03;
 
 public class Code01_MergeSort {
 

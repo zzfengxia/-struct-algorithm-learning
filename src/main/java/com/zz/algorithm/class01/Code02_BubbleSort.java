@@ -1,6 +1,7 @@
-package class01;
+package com.zz.algorithm.class01;
 
 import java.util.Arrays;
+import java.util.function.Function;
 
 public class Code02_BubbleSort {
 
@@ -105,6 +106,23 @@ public class Code02_BubbleSort {
 		printArray(arr);
 		bubbleSort(arr);
 		printArray(arr);
+        int[] arr1 = generateRandomArray(maxSize, maxValue);
+        int[] arr2 = copyArray(arr1);
+        printExecTime(a -> {
+            bubbleSort(arr1);
+            return null;
+        });
+        printExecTime(a -> {
+            comparator(arr2);
+            return null;
+        });
 	}
+	
+	public static void printExecTime(Function exec) {
+	    long start = System.currentTimeMillis();
+        exec.apply(null);
+	    long end = System.currentTimeMillis();
+        System.out.println("耗时：" + (end - start));
+    }
 
 }

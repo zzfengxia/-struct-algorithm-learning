@@ -1,4 +1,4 @@
-package class04;
+package com.zz.algorithm.class04;
 
 import java.util.ArrayList;
 import java.util.Comparator;

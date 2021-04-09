@@ -1,4 +1,4 @@
-package class05;
+package com.zz.algorithm.class05;
 
 import java.util.Arrays;
 

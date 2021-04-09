@@ -1,4 +1,4 @@
-package class07;
+package com.zz.algorithm.class07;
 
 import java.util.LinkedList;
 import java.util.Queue;

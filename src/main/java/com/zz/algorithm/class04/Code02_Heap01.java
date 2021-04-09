@@ -1,4 +1,4 @@
-package class04;
+package com.zz.algorithm.class04;
 
 public class Code02_Heap01 {
 

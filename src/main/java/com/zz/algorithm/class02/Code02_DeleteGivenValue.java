@@ -1,4 +1,4 @@
-package class02;
+package com.zz.algorithm.class02;
 
 public class Code02_DeleteGivenValue {
 

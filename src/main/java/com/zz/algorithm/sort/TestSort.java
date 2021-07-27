@@ -1,5 +1,7 @@
 package com.zz.algorithm.sort;
 
+import java.util.Arrays;
+
 /**
  * ************************************
  * create by Intellij IDEA
@@ -9,4 +11,11 @@ package com.zz.algorithm.sort;
  * ************************************
  */
 public class TestSort {
+
+    public static void main(String[] args) {
+        int[] a1 = new int[]{1, 3};
+        int[] a2 = new int[]{1, 3};
+
+        System.out.println(Arrays.equals(a1, a2));
+    }
 }

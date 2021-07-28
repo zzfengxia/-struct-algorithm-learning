@@ -17,14 +17,12 @@ import java.util.Queue;
 public class TreeUtils {
     /**
      * 通过数组创建树结构，数组中元素按层级顺序存放，空节点需要null填充
-     * [1,null,2,3]
+     * [1,null,2,3] 最后一行剪掉父节点为null的左右子节点的null填充情况下的数组
      * [1,2]
      * [1,null,2]
      *
      * {5,4,8,11,null,13,4,7,2,null,null,null,1}
      *
-     * 剪掉父节点为null的左右子节点的null填充情况下的数组
-     * {5,4,8,11,null,13,4,7,2,null,1}
      *       5
      *      / \
      *     4   8
@@ -102,14 +100,70 @@ public class TreeUtils {
      *   2       3
      *  / \     / \
      * 4   5   6   7
+     *
+     * 最后一行每个节点间隔3个空格，树的深度为d，因此最后1行的宽度为最大节点数 * 3 + 1，即 2^(d-1) * 3 + 1，也是二维数组的宽度
+     * 每行间隔字符数gap = 树深度 - 当前节点层数 - 1
+     * 第一行起始位置 宽度/2，往下每行左节点位置 = 起始位置 - gap，右节点 = 起始位置 + gap
      */
-    public static <T> T[][] showGradeOnTree(TreeNode<T> root) {
-        if(root == null) {
+    public static <T> String[][] showGradeOnTree(TreeNode<T> root) {
+        if (root == null)
             return null;
+
+        int treeDepth = getTreeDepth(root);
+
+        int arrayHeight = treeDepth * 2 - 1;
+        // 最后一行的宽度为2的（n - 1）次方乘3，再加1
+        int arrayWidth = (2 << (treeDepth - 2)) * 3 + 1;
+        String[][] res = new String[arrayHeight][arrayWidth];
+        // 对数组进行初始化，默认为一个空格
+        for (int i = 0; i < arrayHeight; i ++) {
+            for (int j = 0; j < arrayWidth; j ++) {
+                res[i][j] = " ";
+            }
         }
-        int depth = getTreeDepth(root);
 
+        // 从根节点开始，递归处理整个树
+        writeArray(root, 0, arrayWidth/ 2, res, treeDepth);
 
+        for (String[] line: res) {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < line.length; i ++) {
+                sb.append(line[i]);
+                if (line[i].length() > 1 && i <= line.length - 1) {
+                    i += line[i].length() > 4 ? 2: line[i].length() - 1;
+                }
+            }
+            System.out.println(sb);
+        }
+        return res;
+    }
+
+    private static <T> void writeArray(TreeNode<T> currNode, int rowIndex, int columnIndex, String[][] res, int treeDepth) {
+        if (currNode == null)
+            return;
+
+        res[rowIndex][columnIndex] = String.valueOf(currNode.element);
+
+        // 计算当前位于树的第几层
+        int currLevel = ((rowIndex + 1) / 2);
+        // 若到了最后一层，则返回
+        if (currLevel == treeDepth)
+            return;
+
+        // 计算当前行到下一行，每一个元素之间的间隔（下一行的列索引与当前元素的列索引之间的间隔）
+        int gap = treeDepth - currLevel - 1;
+
+        // 对左儿子进行判断，如有左儿子，则记录相应的"/"与左儿子的值
+        if (currNode.left != null) {
+            res[rowIndex + 1][columnIndex - gap] = "/";
+            writeArray(currNode.left, rowIndex + 2, columnIndex - gap * 2, res, treeDepth);
+        }
+
+        // 对右儿子进行判断，如有右儿子，则记录相应的"\"与右儿子的值
+        if (currNode.right != null) {
+            res[rowIndex + 1][columnIndex + gap] = "\\";
+            writeArray(currNode.right, rowIndex + 2, columnIndex + gap * 2, res, treeDepth);
+        }
     }
 
     /**
@@ -121,5 +175,17 @@ public class TreeUtils {
         }
 
         return 1 + Math.max(getTreeDepth(root.left), getTreeDepth(root.right));
+    }
+
+    public static void main(String[] args) {
+        //   * [1,null,2,3]
+        //     * [1,2]
+        //     * [1,null,2]
+        TreeNode<Integer> root = createTreeWithArray(new Integer[]{1,2,3,4,5});
+        TreeNode<Integer> root2 = createTreeWithArray(new Integer[]{5,4,8,11,null,13,4,7,2,null,null,null,1});
+        TreeNode<Integer> root3 = createTreeWithArray(new Integer[]{5,4,8,11,null,13,4,7,2,null,1});
+        showGradeOnTree(root);
+        showGradeOnTree(root2);
+        showGradeOnTree(root3);
     }
 }

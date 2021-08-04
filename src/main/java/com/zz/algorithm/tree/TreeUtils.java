@@ -2,7 +2,10 @@ package com.zz.algorithm.tree;
 
 import com.sun.jmx.remote.internal.ArrayQueue;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 /**
@@ -81,6 +84,35 @@ public class TreeUtils {
             restArrSize -= nodeSize;
             nodeSize = parentNodeList.size() * 2;
         }
+        return root;
+    }
+
+    /**
+     * 有序数组转为平衡二叉查找树
+     * 思路：每次取数组中间数据作为根节点，左边数据转为左子树，右边数据转为右子树，递归操作
+     *
+     * @param orderList 有序数组
+     */
+    public static <T> TreeNode<T> createBSearchTreeWithArray(List<T> orderList) {
+        if(orderList == null || orderList.isEmpty()) {
+            return null;
+        }
+        return createBSearchTreeWithArray(new ArrayList<>(orderList), 0, orderList.size());
+    }
+
+    private static <T> TreeNode<T> createBSearchTreeWithArray(List<T> orderList, int start, int end) {
+        if(start >= end) {
+            return null;
+        }
+        // 找到中间位置的数据
+        int midIndex = (start + end) / 2;
+        TreeNode<T> root = new TreeNode<>();
+        root.element = orderList.get(midIndex);
+        // 中间元素左边的元素为左子节点
+        root.left = createBSearchTreeWithArray(orderList, start, midIndex);
+        // 中间元素右边的元素为右子节点
+        root.right = createBSearchTreeWithArray(orderList, midIndex + 1, end);
+
         return root;
     }
 
@@ -184,8 +216,12 @@ public class TreeUtils {
         TreeNode<Integer> root = createTreeWithArray(new Integer[]{1,2,3,4,5});
         TreeNode<Integer> root2 = createTreeWithArray(new Integer[]{5,4,8,11,null,13,4,7,2,null,null,null,1});
         TreeNode<Integer> root3 = createTreeWithArray(new Integer[]{5,4,8,11,null,13,4,7,2,null,1});
-        showGradeOnTree(root);
-        showGradeOnTree(root2);
-        showGradeOnTree(root3);
+        // showGradeOnTree(root);
+        // showGradeOnTree(root2);
+        // showGradeOnTree(root3);
+
+        TreeNode<Integer> searchRoot = createBSearchTreeWithArray(Arrays.asList(-10,-3,-2,0,5,9,10));
+        showGradeOnTree(searchRoot);
+
     }
 }

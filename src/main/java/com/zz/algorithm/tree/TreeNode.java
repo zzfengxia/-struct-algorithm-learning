@@ -14,6 +14,9 @@ public class TreeNode<T> {
     TreeNode<T> left;
     TreeNode<T> right;
 
+    public TreeNode() {
+    }
+
     public TreeNode(T element) {
         this.element = element;
     }

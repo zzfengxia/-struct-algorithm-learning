@@ -1,4 +1,4 @@
-package com.zz.algorithm.sort;
+package com.zz.algorithm.datastruct;
 
 import com.zz.algorithm.tree.TreeUtils;
 
